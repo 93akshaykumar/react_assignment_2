@@ -10,28 +10,29 @@ class App extends Component{
     datalen : 0,
     charlist:[]
   }
+  dlen = 100
  showLengthHandler = (event) => {
       let data =event.target.value
         data=data.split(" ")
         data=data.join("")
       let len=data.length
       let char=data.substr(len-1)
-      let element={id:len,char: char}
+      this.dlen+=10
+      let element={id:this.dlen,char: char}
       let charlist=[...this.state.charlist]
       console.log("New Length::",len,element)
       if (this.state.datalen>len){
         console.log("before::removing::",charlist)
-        
-        charlist.pop()
         console.log("after::pop",charlist)
         this.setState({
-          datalen : charlist.length,
+          datalen :this.state.datalen-1 ,
           charlist: charlist
         })
       }else {
         console.log("before::pushing::",this.state.datalen,this.state.charlist)
         charlist.push(element)
         console.log("check::",charlist)
+        this.dlen=charlist.length
         this.setState({
           datalen: len,
           charlist: charlist
@@ -76,7 +77,7 @@ class App extends Component{
   render(){
 
     let setChar = null;
-      console.log("creating::",this.state.charlist)
+      console.log("creating::",this.state.charlist.length,this.dlen)
       if (this.state.charlist.length>0) {
 
         setChar = (
